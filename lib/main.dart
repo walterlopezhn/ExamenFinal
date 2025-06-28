@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+<<<<<<< HEAD
 import 'pages/inicio.dart';
+=======
+import 'pages/inicio.dart'; // <-- Importa tu página de inicio
+
+>>>>>>> origin/main
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +21,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+<<<<<<< HEAD
       home: const InicioPage(), 
     );
   }
 }
+=======
+      home: const InicioPage(), // <-- Aquí se llama a la página de inicio
+    );
+  }
+}
+>>>>>>> origin/main

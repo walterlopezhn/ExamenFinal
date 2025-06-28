@@ -10,7 +10,10 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
+<<<<<<< HEAD
   final StarWarsApi api = StarWarsApi();
+=======
+>>>>>>> origin/main
   List<Map<String, dynamic>> _characters = [];
   List<Map<String, dynamic>> _allCharacters = [];
   List<Map<String, dynamic>> _favorites = [];
@@ -23,6 +26,7 @@ class _InicioPageState extends State<InicioPage> {
     _fetchAllCharacters();
   }
 
+<<<<<<< HEAD
   // Trae todos los personajes de todas las páginas
   Future<void> _fetchAllCharacters() async {
     setState(() => _isLoading = true);
@@ -69,6 +73,27 @@ class _InicioPageState extends State<InicioPage> {
     } finally {
       setState(() => _isLoading = false);
     }
+=======
+  // Trae todos los personajes de todas las páginas usando StarWarsApi
+  Future<void> _fetchAllCharacters() async {
+    setState(() => _isLoading = true);
+    final all = await StarWarsApi.fetchAllPeople();
+    setState(() {
+      _allCharacters = all;
+      _characters = all;
+      _isLoading = false;
+    });
+  }
+
+  // Busca personajes por nombre usando StarWarsApi
+  Future<void> _fetchCharactersBySearch(String search) async {
+    setState(() => _isLoading = true);
+    final results = await StarWarsApi.searchPeople(search);
+    setState(() {
+      _characters = results;
+      _isLoading = false;
+    });
+>>>>>>> origin/main
   }
 
   void _toggleFavorite(Map<String, dynamic> character) {
@@ -81,6 +106,25 @@ class _InicioPageState extends State<InicioPage> {
     });
   }
 
+<<<<<<< HEAD
+=======
+  void _filterCharactersLocally(String search) {
+    setState(() {
+      if (search.trim().isEmpty) {
+        _characters = _allCharacters;
+      } else {
+        _characters = _allCharacters
+            .where((c) =>
+                (c['name'] ?? '')
+                    .toString()
+                    .toLowerCase()
+                    .contains(search.trim().toLowerCase()))
+            .toList();
+      }
+    });
+  }
+
+>>>>>>> origin/main
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -114,6 +158,7 @@ class _InicioPageState extends State<InicioPage> {
                     ),
                     onChanged: (value) {
                       _search = value;
+<<<<<<< HEAD
                       if (_search.isEmpty) {
                         setState(() {
                           _characters = _allCharacters;
@@ -121,6 +166,9 @@ class _InicioPageState extends State<InicioPage> {
                       } else {
                         _fetchCharactersBySearch(_search);
                       }
+=======
+                      _filterCharactersLocally(_search);
+>>>>>>> origin/main
                     },
                   ),
                 ),
@@ -135,6 +183,7 @@ class _InicioPageState extends State<InicioPage> {
                 else
                   Expanded(
                     child: GridView.builder(
+<<<<<<< HEAD
                       padding: const EdgeInsets.all(12),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxisCount,
@@ -143,6 +192,13 @@ class _InicioPageState extends State<InicioPage> {
                         childAspectRatio: 1,
                       ),
                       itemCount: _characters.length,
+=======
+                      itemCount: _characters.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        childAspectRatio: 1,
+                      ),
+>>>>>>> origin/main
                       itemBuilder: (context, index) {
                         final character = _characters[index];
                         final isFavorite = _favorites.any(
@@ -186,4 +242,8 @@ class _InicioPageState extends State<InicioPage> {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main
