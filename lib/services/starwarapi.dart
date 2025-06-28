@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -102,8 +100,3 @@ class StarWarsApi {
     return [];
   }
 }
-<<<<<<< Updated upstream
-
->>>>>>> origin/main
-=======
->>>>>>> Stashed changes

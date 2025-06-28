@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../services/starwarapi.dart';
 import '../utility/StarWarsCard.dart';
 import 'detalle.dart';
@@ -21,6 +22,7 @@ class _InicioPageState extends State<InicioPage> {
   void initState() {
     super.initState();
     _fetchAllCharacters();
+    _loadFavoritesFromFirestore();
   }
 
   // Trae todos los personajes de todas las páginas usando StarWarsApi
@@ -44,14 +46,20 @@ class _InicioPageState extends State<InicioPage> {
     });
   }
 
-  void _toggleFavorite(Map<String, dynamic> character) {
+  void _toggleFavorite(Map<String, dynamic> character) async {
+    final exists = _favorites.any((fav) => fav['name'] == character['name']);
     setState(() {
-      if (_favorites.any((fav) => fav['name'] == character['name'])) {
+      if (exists) {
         _favorites.removeWhere((fav) => fav['name'] == character['name']);
       } else {
         _favorites.add(character);
       }
     });
+    if (exists) {
+      await _removeFavoriteFromFirestore(character);
+    } else {
+      await _addFavoriteToFirestore(character);
+    }
   }
 
   void _filterCharactersLocally(String search) {
@@ -67,6 +75,37 @@ class _InicioPageState extends State<InicioPage> {
             )
             .toList();
       }
+    });
+  }
+
+  // Guarda un favorito en Firestore
+  Future<void> _addFavoriteToFirestore(Map<String, dynamic> character) async {
+    await FirebaseFirestore.instance
+        .collection('favoritos')
+        .doc(character['name'])
+        .set(character);
+  }
+
+  // Elimina un favorito de Firestore
+  Future<void> _removeFavoriteFromFirestore(
+    Map<String, dynamic> character,
+  ) async {
+    await FirebaseFirestore.instance
+        .collection('favoritos')
+        .doc(character['name'])
+        .delete();
+  }
+
+  // Carga los favoritos de Firestore al iniciar la app
+  Future<void> _loadFavoritesFromFirestore() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('favoritos')
+        .get();
+    setState(() {
+      _favorites = snapshot.docs
+          .map((doc) => doc.data())
+          .toList()
+          .cast<Map<String, dynamic>>();
     });
   }
 
