@@ -41,7 +41,9 @@ class StarWarsApi {
               results.map((item) => Map<String, dynamic>.from(item)).toList(),
             );
             // Si el campo next es vacío o null, termina el ciclo
-            url = (jsonData['next'] != null && jsonData['next'].toString().isNotEmpty)
+            url =
+                (jsonData['next'] != null &&
+                    jsonData['next'].toString().isNotEmpty)
                 ? jsonData['next']
                 : null;
           } else {
@@ -100,5 +102,8 @@ class StarWarsApi {
     return [];
   }
 }
+<<<<<<< Updated upstream
 
 >>>>>>> origin/main
+=======
+>>>>>>> Stashed changes

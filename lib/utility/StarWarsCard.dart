@@ -24,7 +24,7 @@ class StarWarsCard extends StatelessWidget {
     final double iconButtonSize = 32;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap, // <-- Esto debe estar aquí
       child: AspectRatio(
         aspectRatio: 1,
         child: Card(
