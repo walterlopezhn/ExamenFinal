@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "246925700936",
+    "project_id": "starwar-817d5",
+    "storage_bucket": "starwar-817d5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246925700936:android:27162ac7c9d0943aa94d7d",
+        "android_client_info": {
+          "package_name": "com.example.examen_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsDRrNhWagB6Mn2oxjufH-vss9WTj94uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
