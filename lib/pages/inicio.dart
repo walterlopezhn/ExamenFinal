@@ -25,7 +25,7 @@ class _InicioPageState extends State<InicioPage> {
     _loadFavoritesFromFirestore();
   }
 
-  // Trae todos los personajes de todas las páginas usando StarWarsApi
+  // Trae todos los personajes
   Future<void> _fetchAllCharacters() async {
     setState(() => _isLoading = true);
     final all = await StarWarsApi.fetchAllPeople();
@@ -129,7 +129,7 @@ class _InicioPageState extends State<InicioPage> {
         ),
         body: TabBarView(
           children: [
-            // Página de personajes
+            // Pgina de personajes
             Column(
               children: [
                 Padding(
@@ -194,7 +194,7 @@ class _InicioPageState extends State<InicioPage> {
                   ),
               ],
             ),
-            // Página de favoritos
+            // Pina de favoritos
             _favorites.isEmpty
                 ? const Center(child: Text('No hay favoritos'))
                 : GridView.builder(

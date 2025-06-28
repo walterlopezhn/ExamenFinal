@@ -24,7 +24,7 @@ class StarWarsCard extends StatelessWidget {
     final double iconButtonSize = 32;
 
     return GestureDetector(
-      onTap: onTap, // <-- Esto debe estar aquí
+      onTap: onTap,
       child: AspectRatio(
         aspectRatio: 1,
         child: Card(
@@ -34,7 +34,7 @@ class StarWarsCard extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // Nombre del personaje, siempre visible abajo
+              // Nombre del personaje visible abajo
               Positioned(
                 left: 0,
                 right: 0,
@@ -61,7 +61,7 @@ class StarWarsCard extends StatelessWidget {
                   ),
                 ),
               ),
-              // Botón de favorito o eliminar (opcional)
+              // Botn de favorito o eliminar
               if (onDeleteTap != null || onFavoriteTap != null)
                 Positioned(
                   top: 8,

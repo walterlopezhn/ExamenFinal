@@ -14,28 +14,27 @@ class DetallePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Puedes agregar más campos según lo que traiga tu API
+    //  agregar mas campos segus api
     return Scaffold(
-      appBar: AppBar(
-        title: Text(character['name'] ?? 'Detalle'),
-      ),
+      appBar: AppBar(title: Text(character['name'] ?? 'Detalle')),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nombre: ${character['name'] ?? 'Desconocido'}',
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            Text(
+              'Nombre: ${character['name'] ?? 'Desconocido'}',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 16),
             if (character['height'] != null)
               Text('Altura: ${character['height']}'),
-            if (character['mass'] != null)
-              Text('Peso: ${character['mass']}'),
+            if (character['mass'] != null) Text('Peso: ${character['mass']}'),
             if (character['gender'] != null)
               Text('Género: ${character['gender']}'),
             if (character['birth_year'] != null)
               Text('Año de nacimiento: ${character['birth_year']}'),
-            // Agrega aquí más campos si tu API los trae
+            // Agrega  API los trae
             const SizedBox(height: 32),
             Row(
               children: [
@@ -48,7 +47,9 @@ class DetallePage extends StatelessWidget {
                   onPressed: onFavoriteTap,
                 ),
                 const SizedBox(width: 8),
-                Text(isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'),
+                Text(
+                  isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos',
+                ),
               ],
             ),
           ],
