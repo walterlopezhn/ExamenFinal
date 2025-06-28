@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/starwarapi.dart';
 import '../utility/StarWarsCard.dart';
+import 'detalle.dart';
 
 class InicioPage extends StatefulWidget {
   const InicioPage({Key? key}) : super(key: key);
@@ -10,10 +11,6 @@ class InicioPage extends StatefulWidget {
 }
 
 class _InicioPageState extends State<InicioPage> {
-<<<<<<< HEAD
-  final StarWarsApi api = StarWarsApi();
-=======
->>>>>>> origin/main
   List<Map<String, dynamic>> _characters = [];
   List<Map<String, dynamic>> _allCharacters = [];
   List<Map<String, dynamic>> _favorites = [];
@@ -26,54 +23,6 @@ class _InicioPageState extends State<InicioPage> {
     _fetchAllCharacters();
   }
 
-<<<<<<< HEAD
-  // Trae todos los personajes de todas las páginas
-  Future<void> _fetchAllCharacters() async {
-    setState(() => _isLoading = true);
-    try {
-      List<Map<String, dynamic>> all = [];
-      int page = 1;
-      bool hasMore = true;
-      while (hasMore) {
-        final results = await StarWarsApi.fetchPeople(page: page);
-        print('Página $page: ${results.length} personajes'); // <-- Agrega esto
-        if (results.isNotEmpty) {
-          all.addAll(results);
-          page++;
-        } else {
-          hasMore = false;
-        }
-      }
-      setState(() {
-        _allCharacters = all;
-        _characters = all;
-      });
-    } catch (e) {
-      setState(() {
-        _characters = [];
-        _allCharacters = [];
-      });
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
-
-  // Busca personajes por nombre usando la API (para resultados exactos)
-  Future<void> _fetchCharactersBySearch(String search) async {
-    setState(() => _isLoading = true);
-    try {
-      final results = await StarWarsApi.fetchPeople(search: search);
-      setState(() {
-        _characters = results;
-      });
-    } catch (e) {
-      setState(() {
-        _characters = [];
-      });
-    } finally {
-      setState(() => _isLoading = false);
-    }
-=======
   // Trae todos los personajes de todas las páginas usando StarWarsApi
   Future<void> _fetchAllCharacters() async {
     setState(() => _isLoading = true);
@@ -93,7 +42,6 @@ class _InicioPageState extends State<InicioPage> {
       _characters = results;
       _isLoading = false;
     });
->>>>>>> origin/main
   }
 
   void _toggleFavorite(Map<String, dynamic> character) {
@@ -106,25 +54,22 @@ class _InicioPageState extends State<InicioPage> {
     });
   }
 
-<<<<<<< HEAD
-=======
   void _filterCharactersLocally(String search) {
     setState(() {
       if (search.trim().isEmpty) {
         _characters = _allCharacters;
       } else {
         _characters = _allCharacters
-            .where((c) =>
-                (c['name'] ?? '')
-                    .toString()
-                    .toLowerCase()
-                    .contains(search.trim().toLowerCase()))
+            .where(
+              (c) => (c['name'] ?? '').toString().toLowerCase().contains(
+                search.trim().toLowerCase(),
+              ),
+            )
             .toList();
       }
     });
   }
 
->>>>>>> origin/main
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -158,17 +103,7 @@ class _InicioPageState extends State<InicioPage> {
                     ),
                     onChanged: (value) {
                       _search = value;
-<<<<<<< HEAD
-                      if (_search.isEmpty) {
-                        setState(() {
-                          _characters = _allCharacters;
-                        });
-                      } else {
-                        _fetchCharactersBySearch(_search);
-                      }
-=======
                       _filterCharactersLocally(_search);
->>>>>>> origin/main
                     },
                   ),
                 ),
@@ -183,22 +118,11 @@ class _InicioPageState extends State<InicioPage> {
                 else
                   Expanded(
                     child: GridView.builder(
-<<<<<<< HEAD
-                      padding: const EdgeInsets.all(12),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: crossAxisCount,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                        childAspectRatio: 1,
-                      ),
-                      itemCount: _characters.length,
-=======
                       itemCount: _characters.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxisCount,
                         childAspectRatio: 1,
                       ),
->>>>>>> origin/main
                       itemBuilder: (context, index) {
                         final character = _characters[index];
                         final isFavorite = _favorites.any(
@@ -207,8 +131,24 @@ class _InicioPageState extends State<InicioPage> {
                         return StarWarsCard(
                           character: character,
                           isFavorite: isFavorite,
-                          imageSize: imageSize,
                           onFavoriteTap: () => _toggleFavorite(character),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DetallePage(
+                                  character: character,
+                                  isFavorite: isFavorite,
+                                  onFavoriteTap: () {
+                                    _toggleFavorite(character);
+                                    Navigator.pop(
+                                      context,
+                                    ); // Para actualizar favoritos al volver
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         );
                       },
                     ),
@@ -234,6 +174,21 @@ class _InicioPageState extends State<InicioPage> {
                         isFavorite: true,
                         imageSize: imageSize,
                         onDeleteTap: () => _toggleFavorite(character),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetallePage(
+                                character: character,
+                                isFavorite: true,
+                                onFavoriteTap: () {
+                                  _toggleFavorite(character);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   ),
@@ -242,8 +197,4 @@ class _InicioPageState extends State<InicioPage> {
       ),
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/main
